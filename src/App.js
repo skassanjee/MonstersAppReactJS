@@ -10,6 +10,9 @@ constructor(){
     monsters: [],
     searchField: ''
   }
+
+  //Method Binding
+  this.handleChange = this.handleChange.bind(this)
 }
 
 componentDidMount(){
@@ -19,6 +22,10 @@ componentDidMount(){
   .catch(err => console.log(err))
 }
 
+handleChange = (e) => {
+  this.setState({ searchField: e.target.value})
+}
+
 render(){
 
   const { monsters, searchField } = this.state;
@@ -26,13 +33,12 @@ render(){
     monster.name.toLowerCase().includes(searchField.toLowerCase()))
 
   return(
-    <div>
+    <div className="app">
       <SearchBox
         placeholder='search monsters'
-        handleChange={e => this.setState({ searchField: e.target.value})}
+        handleChange={this.handleChange}
       />
-      <CardList monsters={filteredMonsters}>
-      </CardList>
+      <CardList monsters={filteredMonsters} />
 
     </div>
   )
